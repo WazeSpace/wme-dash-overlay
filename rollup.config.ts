@@ -1,4 +1,4 @@
-import convertConvention from '@r0den/convert-conventions';
+import convertStringConvention from './convert-string-convention';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
@@ -6,7 +6,7 @@ import terser from '@rollup/plugin-terser';
 import replace from '@rollup/plugin-replace';
 import addBanner from './rollup-plugin-add-banner';
 
-import * as packageMetadata from './package.json';
+import packageMetadata from './package.json';
 
 const packageName = packageMetadata.name;
 const packageNamespace =
@@ -28,7 +28,7 @@ const scriptName =
   ('displayName' in packageMetadata &&
     typeof packageMetadata.displayName === 'string' &&
     packageMetadata.displayName) ||
-  convertConvention(packagePureName, 'Space Case');
+  convertStringConvention(packagePureName, 'Space Case');
 const shortScriptName =
   ('shortDisplayName' in packageMetadata &&
     typeof packageMetadata.shortDisplayName === 'string' &&
@@ -45,13 +45,13 @@ export default {
   output: [
     {
       format: 'iife',
-      file: 'dist/wme-userscript.user.js',
+      file: `dist/${packagePureName}.user.js`,
       sourcemap: 'inline',
       sourcemapPathTransform: transformSourcemapPath,
     },
     {
       format: 'iife',
-      file: 'dist/wme-userscript.min.user.js',
+      file: `dist/${packagePureName}.min.user.js`,
       sourcemap: 'inline',
       sourcemapPathTransform: transformSourcemapPath,
       plugins: [terser({ mangle: false })],
