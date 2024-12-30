@@ -37,7 +37,7 @@ const shortScriptName =
 
 function transformSourcemapPath(path: string): string {
   const topLevelPath = path.replace(/^(\.\.\/)*/, '');
-  return `userscript:///r0den/wme-userscript-base/${topLevelPath}`;
+  return `userscript:///r0den/${packagePureName}/${topLevelPath}`;
 }
 
 export default {
