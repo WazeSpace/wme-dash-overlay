@@ -44,13 +44,15 @@ export default {
   input: 'src/index.tsx',
   output: [
     {
-      format: 'iife',
+      format: 'es',
+      inlineDynamicImports: true,
       file: `dist/${packagePureName}.user.js`,
       sourcemap: 'inline',
       sourcemapPathTransform: transformSourcemapPath,
     },
     {
-      format: 'iife',
+      format: 'es',
+      inlineDynamicImports: true,
       file: `dist/${packagePureName}.min.user.js`,
       sourcemap: 'inline',
       sourcemapPathTransform: transformSourcemapPath,

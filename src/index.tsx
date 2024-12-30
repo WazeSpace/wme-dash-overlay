@@ -1,13 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from './App';
 import { SDK_INITIALIZED } from './utils/sdk-utils';
+import { App } from './App';
 
-async function bootstrap() {
-  await SDK_INITIALIZED;
+await SDK_INITIALIZED;
 
-  const root = createRoot(document.createDocumentFragment());
-  root.render(<App />);
-}
-
-bootstrap();
+const root = createRoot(document.createDocumentFragment());
+root.render(<App />);

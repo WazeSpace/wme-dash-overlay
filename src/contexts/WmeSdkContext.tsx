@@ -7,19 +7,8 @@ import { getWindow } from '../utils/window-utils';
 type ExtractFunctionType<T> = T extends (...args: any[]) => any ? T : never;
 type WmeSdkResolverFunction = ExtractFunctionType<typeof window.getWmeSdk>;
 
-declare const __SCRIPT_ID__: string;
-declare const __SCRIPT_NAME__: string;
-const defaultWmeSdk = (() => {
-  try {
-    return getWmeSdk?.({
-      scriptId: __SCRIPT_ID__,
-      scriptName: __SCRIPT_NAME__,
-    });
-  } catch {
-    return undefined;
-  }
-})();
-const WmeSdkContext = createContext<WmeSDK>(defaultWmeSdk);
+let defaultWmeSdk: WmeSDK | null = null;
+const WmeSdkContext = createContext<WmeSDK>(undefined!);
 
 interface StaticSdkProps {
   wmeSdk: WmeSDK;
@@ -46,8 +35,15 @@ export function WmeSdkProvider({ children, ...props }: WmeSdkProps) {
 
 export function useWmeSdk() {
   const wmeSdk = useContext(WmeSdkContext);
-  if (wmeSdk === undefined)
+  if (wmeSdk === undefined) {
+    defaultWmeSdk ??= getWmeSdk?.({
+      scriptId: __SCRIPT_ID__,
+      scriptName: __SCRIPT_NAME__,
+    });
+    if (defaultWmeSdk) return defaultWmeSdk;
+
     throw new Error('useWmeSdk must be used within a WmeSdkProvider');
+  }
 
   return wmeSdk;
 }
