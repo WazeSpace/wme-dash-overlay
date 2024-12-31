@@ -1,8 +1,10 @@
 {
-  "name": "wme-userscript",
+  "name": "wme-dash-overlay",
+  "displayName": "WME Dash Overlay",
+  "shortDisplayName": "Dash Overlay",
   "author": "r0den",
   "version": "1.0.0",
-  "description": "",
+  "description": "See your dashcam videos right on the map in WME and make editing a breeze",
   "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c --configPlugin typescript --bundleConfigAsCjs"
